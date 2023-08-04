@@ -11,9 +11,11 @@ class MainActivity : AppCompatActivity() {
          //   bancoDados.execSQL("INSERT INTO fornecedores(nome,telefone) VALUES('Mercadinho',37225489)")
 
 
-            val consultar = "SELECT nome, telefone FROM fornecedores" + " WHERE nome = 'Mecadinho'"
+
             //Atualizar registro
             bancoDados.execSQL("UPDATE fornecedores SET telefone = 333333333 WHERE nome = 'Mercadinho'")
+            
+            val consultar = "SELECT nome, telefone FROM fornecedores" + " WHERE nome = 'Mecadinho'"
 
             val cursor = bancoDados.rawQuery(consultar,null)
             val indceNome = cursor.getColumnIndex("nome")
