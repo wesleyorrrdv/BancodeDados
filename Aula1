@@ -1,0 +1,30 @@
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        try{
+            val bancoDados = openOrCreateDatabase("DB_FORNECEDORES", MODE_PRIVATE,null)
+
+            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS fornecedores(nome VARCHAR, telefone INT(15))")
+            bancoDados.execSQL("INSERT INTO fornecedores(nome,telefone) VALUES('Mais',389987456632)")
+            val consultar = "SELECT nome, telefone FROM fornecedores"
+            val cursor = bancoDados.rawQuery(consultar,null)
+            val indceNome = cursor.getColumnIndex("nome")
+            val indceTelefone = cursor.getColumnIndex("telefone")
+            cursor.moveToFirst()
+            while (cursor!= null){
+
+                val nome = cursor.getString(indceNome)
+                val telefone = cursor.getString(indceTelefone)
+                Log.i("RESULTADO", "/nome:$nome/ telefone: $telefone")
+                cursor.moveToNext()
+
+            }
+
+        }catch(e:Exception){
+            e.printStackTrace()
+
+        }
+    }
+}
